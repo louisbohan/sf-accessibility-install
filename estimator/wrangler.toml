@@ -1,0 +1,11 @@
+name = "sf-accessibility-estimator"
+main = "worker.js"
+compatibility_date = "2026-09-15"
+
+routes = [
+  { pattern = "safelyhomesf.com/api/*", zone_name = "safelyhomesf.com" }
+]
+
+[[kv_namespaces]]
+binding = "PRICING"
+id = "4371e8b6ba57412d97d24c32726f54f0"

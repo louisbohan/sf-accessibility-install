@@ -65,6 +65,16 @@ header .btn{min-height:44px;padding:.5rem 1rem;width:auto}
 .est-range{font-size:1.4rem;font-weight:700}
 .fine{font-size:.9rem}
 
+/* estimator wizard (est-ui.js) */
+[hidden]{display:none!important}
+.est-card{width:100%}
+.est-card strong{display:block;font-size:1.05rem}
+.est-hint{display:block;font-size:.85rem;color:#556;margin-top:.25rem;font-weight:400}
+.est-field{margin:.9rem 0}
+.est-toggle{display:flex!important;gap:.6rem;align-items:flex-start;font-weight:400!important;margin:.5rem 0!important}
+.est-toggle input{margin:0;width:auto;flex:0 0 auto;margin-top:.15rem}
+.est-error{color:#a33;font-weight:700}
+
 /* how it works — real sequence */
 .steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:1.25rem}
 .steps li{padding-left:3.25rem;position:relative}

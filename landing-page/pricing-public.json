@@ -1,0 +1,14 @@
+{
+  "services": [
+    { "id": "grab_bars", "label": "Grab bars", "permitLikely": false },
+    { "id": "threshold_ramp", "label": "Threshold ramp", "permitLikely": false },
+    { "id": "modular_ramp", "label": "Modular aluminum ramp", "permitLikely": true },
+    { "id": "wood_ramp", "label": "Wood ramp (custom)", "permitLikely": true },
+    { "id": "portable_ramp", "label": "Portable ramp", "permitLikely": false },
+    { "id": "handrail", "label": "Handrail / stair railing", "permitLikely": false },
+    { "id": "stairlift_straight", "label": "Stair lift (straight)", "permitLikely": true },
+    { "id": "stairlift_curved", "label": "Stair lift (curved)", "permitLikely": true },
+    { "id": "door_widening", "label": "Door widening", "permitLikely": true },
+    { "id": "vpl", "label": "Vertical platform lift", "permitLikely": true }
+  ]
+}

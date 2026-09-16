@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wheelchair Ramp, Stair Lift & Grab Bar Installation in San Francisco | [BRAND]</title>
-<meta name="description" content="Licensed, insured accessibility installation in San Francisco and the East Bay. Ramps, stair lifts, grab bars and door widening — installed in days. Hospital discharge cases prioritized.">
+<title>Wheelchair Ramp, Stair Lift & Grab Bar Installation in San Francisco | Safely Home SF</title>
+<meta name="description" content="Independent guidance for accessibility installation in San Francisco and the East Bay. We match you with a licensed, insured installer for ramps, stair lifts, grab bars and door widening — usually on site in 48 hours. Hospital discharge cases prioritized.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -13,8 +13,8 @@
 
 <header>
  <div class="wrap">
- <a class="logo" href="#top">[BRAND]</a>
- <a class="btn btn-primary" href="tel:+1[PHONE]">Call [PHONE-DISPLAY]</a>
+ <a class="logo" href="#top">Safely Home SF</a>
+ <a class="btn btn-primary" href="tel:+16507136162">Call (650) 713-6162</a>
  </div>
 </header>
 
@@ -22,28 +22,28 @@
 
 <section class="wrap hero">
  <div>
- <h1>Wheelchair ramps, stair lifts and grab bars — installed in San Francisco in days, not weeks.</h1>
- <p class="sub">Licensed and insured. Hospital discharge cases scheduled first.</p>
- <p>If a parent is coming home and the front steps, the stairs or the bathroom aren't ready, we can usually be on site within 48 hours and installed within the week.</p>
+ <h1>Wheelchair ramps, stair lifts and grab bars — find a licensed installer in San Francisco in days, not weeks.</h1>
+ <p class="sub">Independent, local guidance. Hospital discharge cases scheduled first.</p>
+ <p>If a parent is coming home and the front steps, the stairs or the bathroom aren't ready, we match you with a licensed, insured installer who can usually be on site within 48 hours and installed within the week.</p>
  <div class="actions">
- <a class="btn btn-primary" href="tel:+1[PHONE]">Call [PHONE-DISPLAY]</a>
+ <a class="btn btn-primary" href="tel:+16507136162">Call (650) 713-6162</a>
  <a class="btn" href="#estimate">Get a 60-second ballpark</a>
  </div>
  <p class="fine">Serving San Francisco, Daly City, Oakland, Berkeley, Alameda and San Leandro.</p>
  </div>
- <img src="hero.jpg" width="960" height="720" alt="[CONTRACTOR NAME] fitting a modular aluminum ramp to the front steps of a San Francisco home">
+ <!-- HERO PHOTO: add a real installer-at-work photo here when available -->
 </section>
 
 <section class="wrap">
  <div class="proof">
- <div><strong>CSLB #[CSLB]</strong>Licensed, bonded and insured contractor does every install.</div>
+ <div><strong>Licensed, insured installers</strong>Every installer we refer is licensed, bonded and insured. We verify credentials before we match.</div>
  <div><strong>On site in 48 hours</strong>Free in-home safety assessment, written quote the same day.</div>
  <div><strong>Grants and VA welcome</strong>We know HISA, Medi-Cal waiver and long-term-care paperwork.</div>
  </div>
 </section>
 
 <section class="wrap">
- <h2>What we install</h2>
+ <h2>What we help you arrange</h2>
  <ul class="services">
  <li>Modular aluminum wheelchair ramps <span>from $2,000</span><small>Permanent, ADA-slope, removable if you sell. 1–2 days.</small></li>
  <li>Stair lifts (straight and curved) <span>from $3,500</span><small>Bruno, Harmar, Acorn. Straight rails install in one day.</small></li>
@@ -52,19 +52,47 @@
  <li>Door widening <span>from $1,200</span><small>To a 32–36" clear opening. Bearing walls handled.</small></li>
  <li>Vertical platform lifts <span>from $8,000</span><small>For SF hillside lots where a ramp won't fit.</small></li>
  </ul>
+ <p class="fine">Ranges reflect local market pricing. Your final number is quoted in writing by the licensed installer after an in-home assessment.</p>
 </section>
 
 <section class="wrap">
- <!-- ESTIMATOR: est-ui.js mounts into this container -->
- <div id="estimate" class="est"></div>
+ <div class="est" id="estimate">
+ <h2>Get a ballpark in 60 seconds</h2>
+ <p class="est-sub">Not a quote — a range from local install pricing. Your licensed installer confirms the final number at assessment.</p>
+
+ <div class="est-step" data-step="1">
+ <div class="est-grid" id="est-services"></div>
+ </div>
+
+ <div class="est-step" data-step="2" hidden>
+ <div id="est-questions"></div>
+ <button class="btn" id="est-next" type="button">See my range</button>
+ </div>
+
+ <div class="est-step" data-step="3" hidden>
+ <form id="est-lead">
+ <label>Your name <input name="name" required autocomplete="name"></label>
+ <label>Mobile number <input name="phone" type="tel" required autocomplete="tel"></label>
+ <label>ZIP of the home <input name="zip" inputmode="numeric" pattern="9[0-9]{4}" required></label>
+ <button class="btn btn-primary" type="submit">Show my estimate</button>
+ <p class="fine">We'll text your range and a link to book a free assessment. Reply STOP anytime.</p>
+ </form>
+ </div>
+
+ <div class="est-step" data-step="4" hidden>
+ <p class="est-range">Typical installed range: <strong id="est-low"></strong> – <strong id="est-high"></strong></p>
+ <p id="est-permit" hidden>This job may need a San Francisco permit; your installer handles it.</p>
+ <a class="btn btn-primary" href="tel:+16507136162">Call (650) 713-6162</a>
+ </div>
+ </div>
 </section>
 
 <section class="wrap">
  <h2>How it works</h2>
  <ol class="steps">
  <li><strong>Call or text us.</strong> Tell us what changed and when they're coming home.</li>
- <li><strong>Free in-home assessment.</strong> Our licensed contractor measures, checks walls and slopes, and leaves a written quote.</li>
- <li><strong>Installed within days.</strong> Most grab bars and ramps in one visit. We handle any San Francisco permit.</li>
+ <li><strong>We match you with a licensed installer.</strong> A vetted contractor measures, checks walls and slopes, and leaves a written quote.</li>
+ <li><strong>Installed within days.</strong> Most grab bars and ramps in one visit. Your installer handles any San Francisco permit.</li>
  </ol>
 </section>
 
@@ -72,30 +100,33 @@
  <h2>Who we work with</h2>
  <div class="aud">
  <div><h3>Families</h3><p>You're often arranging this from a hospital hallway. Send us a photo of the steps or bathroom and we'll tell you what's realistic before you commit to anything.</p></div>
- <div><h3>Discharge planners and OT/PTs</h3><p>We prioritize discharge cases and build to your home-safety assessment. One number to call, a written confirmation within hours.</p></div>
- <div><h3>Veterans and grant recipients</h3><p>Familiar with VA HISA grants, Medi-Cal HCBS and long-term-care insurance reimbursement. We'll give you the paperwork you need.</p></div>
+ <div><h3>Discharge planners and OT/PTs</h3><p>We prioritize discharge cases and coordinate with your home-safety assessment. One number to call, a written confirmation within hours.</p></div>
+ <div><h3>Veterans and grant recipients</h3><p>Familiar with VA HISA grants, Medi-Cal HCBS and long-term-care insurance reimbursement. We'll get you the paperwork you need.</p></div>
  </div>
 </section>
 
 <section class="wrap">
  <h2>Questions families ask</h2>
- <details><summary>Do we need a permit in San Francisco?</summary><p>Grab bars, handrails on existing stairs and threshold ramps usually don't. Permanent exterior ramps, platform lifts and door widening in bearing walls usually do. We pull it and include it in the quote.</p></details>
- <details><summary>How fast can you really install?</summary><p>Grab bars and portable or threshold ramps: often within 48 hours. Modular ramps and straight stair lifts: typically within a week. Curved stair lifts need a custom rail and take 2–4 weeks.</p></details>
+ <details><summary>Do we need a permit in San Francisco?</summary><p>Grab bars, handrails on existing stairs and threshold ramps usually don't. Permanent exterior ramps, platform lifts and door widening in bearing walls usually do. Your installer pulls it and includes it in the quote.</p></details>
+ <details><summary>How fast can it really be installed?</summary><p>Grab bars and portable or threshold ramps: often within 48 hours. Modular ramps and straight stair lifts: typically within a week. Curved stair lifts need a custom rail and take 2–4 weeks.</p></details>
  <details><summary>Will a ramp fit on a San Francisco stoop?</summary><p>Often yes with a switchback platform. When the rise is too high for the lot, a vertical platform lift takes about a 5×5 ft footprint.</p></details>
- <details><summary>Who does the work?</summary><p>[CONTRACTOR NAME], CSLB #[CSLB], and his crew. [BRAND] handles scheduling, quoting and your questions; the contractor holds the license and insurance.</p></details>
- <details><summary>How do we pay?</summary><p>Deposit on signing, balance on completion. We accept card, check and most long-term-care and VA reimbursement paperwork.</p></details>
+ <details><summary>Who does the work?</summary><p>Safely Home SF is an independent referral service — we don't do the work ourselves. We match you with a separately licensed, insured installer who performs the job. We stay your point of contact from first call to completion.</p></details>
+ <details><summary>How do we pay?</summary><p>Deposit on signing, balance on completion. Most installers accept card, check and long-term-care or VA reimbursement paperwork.</p></details>
 </section>
 
 </main>
 
 <footer class="wrap">
- <p><strong>[BRAND]</strong> — accessibility installation scheduling for San Francisco and the East Bay.</p>
- <p>Installation performed by [CONTRACTOR NAME], CSLB license #[CSLB], bonded and insured.</p>
- <p><a href="tel:+1[PHONE]">[PHONE-DISPLAY]</a> · <a href="mailto:hello@[domain]">hello@[domain]</a></p>
- <p class="fine">Estimates on this site are ranges based on local installed pricing and are not a contract offer. Final pricing is provided in writing after an in-home assessment.</p>
+ <p><strong>Safely Home SF</strong> — independent accessibility guidance for San Francisco and the East Bay.</p>
+ <p>Safely Home SF is an independent information and referral service, not a contractor. Installation is performed by a separately licensed, insured installer.</p>
+ <p><a href="tel:+16507136162">(650) 713-6162</a> · <a href="mailto:hello@safelyhomesf.com">hello@safelyhomesf.com</a></p>
+ <p class="fine">Estimates on this site are ranges based on local market research and are not a contract offer. Final pricing is provided in writing after an in-home assessment by a licensed installer.</p>
 </footer>
 
-<script type="module" src="est-ui.js"></script>
-<!-- Meta Pixel + Google Ads conversion tag go here; fire "Lead" on estimator submit and on tel: click -->
+<script type="module">
+ import { initEstimator } from './est-ui.js';
+ initEstimator();
+</script>
+<!-- Meta Pixel + Google Ads conversion tags go here; fire "Lead" on estimator submit and on tel: click -->
 </body>
 </html>
