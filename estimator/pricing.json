@@ -1,0 +1,139 @@
+{
+  "version": "2026-09-15",
+  "markupPct": 0.40,
+  "displayRangePadPct": 0.05,
+  "sfLaborMultiplier": 1.0,
+  "services": [
+    {
+      "id": "grab_bars",
+      "label": "Grab bars",
+      "unit": "bar",
+      "wholesale": { "base": 195, "perUnit": 80 },
+      "modifiers": {
+        "tile_wall": 35,
+        "needs_blocking": 70,
+        "ada_rated_bar": 20
+      },
+      "permitLikely": false
+    },
+    {
+      "id": "threshold_ramp",
+      "label": "Threshold ramp",
+      "unit": "each",
+      "wholesale": { "base": 215, "perUnit": 0 },
+      "modifiers": {
+        "rise_over_3in": 120,
+        "outdoor": 50,
+        "custom_cut": 95
+      },
+      "permitLikely": false
+    },
+    {
+      "id": "modular_ramp",
+      "label": "Modular aluminum ramp",
+      "unit": "linear_ft",
+      "wholesale": { "base": 715, "perUnit": 110 },
+      "modifiers": {
+        "platform_turn": 400,
+        "handrails_both_sides": 30,
+        "hillside_footing": 250,
+        "permit": 300
+      },
+      "derive": { "linear_ft": "rise_in * 1.0", "min_ft": 4 },
+      "permitLikely": true
+    },
+    {
+      "id": "wood_ramp",
+      "label": "Wood ramp (custom)",
+      "unit": "linear_ft",
+      "wholesale": { "base": 590, "perUnit": 85 },
+      "modifiers": {
+        "platform_turn": 550,
+        "handrails_both_sides": 40,
+        "hillside_footing": 400,
+        "permit": 400
+      },
+      "derive": { "linear_ft": "rise_in * 1.0", "min_ft": 4 },
+      "permitLikely": true
+    },
+    {
+      "id": "portable_ramp",
+      "label": "Portable ramp",
+      "unit": "each",
+      "wholesale": { "base": 270, "perUnit": 0 },
+      "modifiers": {
+        "length_over_6ft": 180,
+        "length_over_10ft": 320,
+        "heavy_duty_600lb": 110
+      },
+      "permitLikely": false
+    },
+    {
+      "id": "handrail",
+      "label": "Handrail / stair railing",
+      "unit": "run",
+      "wholesale": { "base": 300, "perUnit": 300 },
+      "modifiers": {
+        "both_sides": 120,
+        "exterior": 50,
+        "masonry_wall": 60
+      },
+      "permitLikely": false
+    },
+    {
+      "id": "stairlift_straight",
+      "label": "Stair lift (straight)",
+      "unit": "each",
+      "wholesale": { "base": 2650, "perUnit": 0 },
+      "modifiers": {
+        "steps_over_14": 600,
+        "outdoor_rated": 900,
+        "new_outlet": 350,
+        "refurbished_discount": -800,
+        "permit": 350
+      },
+      "permitLikely": true
+    },
+    {
+      "id": "stairlift_curved",
+      "label": "Stair lift (curved)",
+      "unit": "each",
+      "wholesale": { "base": 7000, "perUnit": 0 },
+      "modifiers": {
+        "each_turn": 1200,
+        "outdoor_rated": 1200,
+        "new_outlet": 350,
+        "permit": 350
+      },
+      "permitLikely": true
+    },
+    {
+      "id": "door_widening",
+      "label": "Door widening",
+      "unit": "door",
+      "wholesale": { "base": 900, "perUnit": 0 },
+      "modifiers": {
+        "load_bearing": 750,
+        "electrical_in_wall": 320,
+        "new_door_hardware": 280,
+        "finish_match": 200,
+        "permit": 350
+      },
+      "permitLikely": true
+    },
+    {
+      "id": "vpl",
+      "label": "Vertical platform lift",
+      "unit": "each",
+      "wholesale": { "base": 6250, "perUnit": 0 },
+      "modifiers": {
+        "rise_over_6ft": 1800,
+        "concrete_pad": 900,
+        "enclosure": 2000,
+        "electrical_circuit": 600,
+        "permit": 600
+      },
+      "permitLikely": true
+    }
+  ]
+}

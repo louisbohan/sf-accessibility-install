@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Install Estimator</title>
+  <style>
+    /* ----------------------------------------------------------------------
+       Estimator Styles — scoped to #estimate so they don't leak into
+       the host landing page. Drop this <section> anywhere.
+       ---------------------------------------------------------------------- */
+    #estimate {
+      --est-primary: #2563eb;
+      --est-primary-dark: #1d4ed8;
+      --est-bg: #ffffff;
+      --est-surface: #f8fafc;
+      --est-border: #e2e8f0;
+      --est-text: #1e293b;
+      --est-muted: #64748b;
+      --est-radius: 12px;
+      --est-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--est-text);
+      max-width: 720px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background: var(--est-bg);
+      border: 1px solid var(--est-border);
+      border-radius: var(--est-radius);
+      box-shadow: var(--est-shadow);
+    }
+
+    #estimate h2 {
+      margin: 0 0 0.25rem;
+      font-size: 1.5rem;
+    }
+
+    #estimate .est-sub {
+      margin: 0 0 1.5rem;
+      color: var(--est-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Step container */
+    #estimate .est-step {
+      animation: estFadeIn 0.25s ease;
+    }
+
+    @keyframes estFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Service grid */
+    #estimate .est-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.75rem;
+    }
+
+    #estimate .est-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+      padding: 1rem;
+      background: var(--est-surface);
+      border: 1px solid var(--est-border);
+      border-radius: var(--est-radius);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    #estimate .est-card:hover {
+      border-color: var(--est-primary);
+      box-shadow: var(--est-shadow);
+    }
+
+    #estimate .est-card strong {
+      font-size: 1rem;
+    }
+
+    #estimate .est-hint {
+      font-size: 0.8rem;
+      color: var(--est-muted);
+    }
+
+    /* Questions */
+    #estimate .est-field {
+      margin-bottom: 1rem;
+    }
+
+    #estimate .est-field label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+    }
+
+    #estimate .est-field input[type="number"],
+    #estimate .est-field input[type="tel"],
+    #estimate .est-field input[type="text"] {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      font-size: 1rem;
+      border: 1px solid var(--est-border);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    #estimate .est-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      font-weight: 400;
+    }
+
+    #estimate .est-toggle input {
+      width: 1.15rem;
+      height: 1.15rem;
+      accent-color: var(--est-primary);
+    }
+
+    /* Buttons */
+    #estimate .btn {
+      display: inline-block;
+      padding: 0.65rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--est-primary);
+      background: transparent;
+      border: 2px solid var(--est-primary);
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    #estimate .btn:hover {
+      background: var(--est-primary);
+      color: #fff;
+    }
+
+    #estimate .btn-primary {
+      background: var(--est-primary);
+      color: #fff;
+      border-color: var(--est-primary);
+    }
+
+    #estimate .btn-primary:hover {
+      background: var(--est-primary-dark);
+      border-color: var(--est-primary-dark);
+    }
+
+    /* Lead form */
+    #estimate #est-lead label {
+      display: block;
+      margin-bottom: 0.9rem;
+      font-weight: 500;
+    }
+
+    #estimate #est-lead input {
+      margin-top: 0.3rem;
+    }
+
+    #estimate .fine {
+      font-size: 0.8rem;
+      color: var(--est-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* Result range */
+    #estimate .est-range {
+      font-size: 1.25rem;
+      margin: 0 0 1rem;
+    }
+
+    #estimate .est-range strong {
+      color: var(--est-primary);
+      font-size: 1.5rem;
+    }
+
+    #estimate #est-permit {
+      color: #b45309;
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      padding: 0.6rem 0.9rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    #estimate .est-error {
+      color: #991b1b;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      padding: 0.75rem;
+      border-radius: 8px;
+    }
+
+    #estimate .est-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    ========================================================================
+    EMBEDDABLE ESTIMATOR SECTION
+    ========================================================================
+    Drop this <section id="estimate"> into any landing page.
+    It is fully self-contained and scoped via CSS custom properties.
+
+    Dependencies:
+      - estimator.js  (pure pricing engine)
+      - est-ui.js     (wizard logic)
+      - pricing.json  (pricing matrix)
+
+    The estimator calls /api/estimate if available; falls back to client-side
+    computation if the Worker is not deployed yet.
+    ========================================================================
+  -->
+  <section id="estimate" class="est">
+    <h2>Get a ballpark in 60 seconds</h2>
+    <p class="est-sub">Not a quote — a real range from local install pricing. A licensed contractor confirms on site.</p>
+
+    <!-- Step 1: Pick a service -->
+    <div class="est-step" data-step="1">
+      <div class="est-grid" id="est-services">
+        <!-- Populated by est-ui.js -->
+      </div>
+    </div>
+
+    <!-- Step 2: Answer questions -->
+    <div class="est-step" data-step="2" hidden>
+      <div id="est-questions"></div>
+      <button class="btn btn-primary" id="est-next">See my range →</button>
+    </div>
+
+    <!-- Step 3: Lead capture (gate the reveal) -->
+    <div class="est-step" data-step="3" hidden>
+      <form id="est-lead">
+        <label>
+          Your name
+          <input name="name" type="text" required autocomplete="name" placeholder="Jane Doe">
+        </label>
+        <label>
+          Mobile number
+          <input name="phone" type="tel" required autocomplete="tel" placeholder="(415) 555-0123">
+        </label>
+        <label>
+          ZIP of the home
+          <input name="zip" type="text" inputmode="numeric" pattern="\d{5}" required placeholder="94102">
+        </label>
+        <button class="btn btn-primary" type="submit">Show my estimate</button>
+        <p class="fine">We'll text your range and a link to book a free assessment. Reply STOP anytime.</p>
+      </form>
+    </div>
+
+    <!-- Step 4: Range reveal -->
+    <div class="est-step" data-step="4" hidden>
+      <p class="est-range">
+        Typical installed range:<br>
+        <strong id="est-low">—</strong> – <strong id="est-high">—</strong>
+      </p>
+      <p id="est-permit" hidden>
+        ⚠️ This job may need a San Francisco permit; we handle it.
+      </p>
+      <div class="est-actions">
+        <a class="btn btn-primary" href="tel:+14155550123">Call now</a>
+        <a class="btn" href="#book">Book a free assessment</a>
+      </div>
+    </div>
+  </section>
+
+  <script type="module">
+    import { initEstimator } from './est-ui.js';
+    initEstimator('./pricing.json');
+  </script>
+
+</body>
+</html>
