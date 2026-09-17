@@ -1,12 +1,14 @@
 /**
  * est-ui.js — Client-side wizard UI for the Safely Home SF estimator
  *
- * Flow: pick service → answer ≤4 questions → enter name/phone/ZIP → range.
- * Pricing comes from the Worker at /api/estimate (wholesale NEVER in browser).
- * Leads POST to a Google Apps Script that appends rows to the owner's Sheet.
+ * Flow: pick service → answer ≤4 questions → see rough ballpark →
+ *       enter name/phone/ZIP → confirmed range + lead logged to KV + Sheet.
  *
- * NOTE: no client-side pricing import — the server-side estimate is the only
- * source of numbers, so wholesale costs are never exposed.
+ * Pricing comes from the Worker at /api/estimate (wholesale NEVER in browser).
+ * - Teaser call (step 2→3): no leadId, just shows the ballpark.
+ * - Submit call (step 3→4): sends leadId + lead so the Worker logs the full
+ *   record (incl. wholesale) to KV for the quote agent.
+ * Leads also POST to a Google Apps Script that appends rows to the owner's Sheet.
  */
 
 // ---------------------------------------------------------------------------
@@ -90,10 +92,14 @@ let state = { serviceId: null, qty: 1, rise_in: null, answers: {} };
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => [...document.querySelectorAll(sel)];
 
+const STEP_PCT = { 1: '25%', 2: '50%', 3: '75%', 4: '100%' };
+
 function show(stepNum) {
   $$('.est-step').forEach((el) => {
     el.hidden = parseInt(el.dataset.step, 10) !== stepNum;
   });
+  const bar = $('.est-progress-bar');
+  if (bar) bar.style.setProperty('--pct', STEP_PCT[stepNum] || '25%');
 }
 
 function money(n) {
@@ -102,6 +108,18 @@ function money(n) {
 
 function generateLeadId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function currentSelection() {
+  const sel = {
+    serviceId: state.serviceId,
+    qty: state.qty,
+    rise_in: state.rise_in,
+    answers: { ...state.answers },
+  };
+  delete sel.answers.qty;
+  delete sel.answers.rise_in;
+  return sel;
 }
 
 // ---------------------------------------------------------------------------
@@ -191,7 +209,43 @@ function renderQuestions() {
 }
 
 // ---------------------------------------------------------------------------
-// Step 3 — Lead Capture (gate the range reveal)
+// Step 2 → 3 — Fetch ballpark BEFORE lead capture (no leadId, no logging)
+// ---------------------------------------------------------------------------
+async function fetchAndShowTeaser() {
+  const nextBtn = $('#est-next');
+  if (nextBtn) { nextBtn.disabled = true; nextBtn.textContent = 'Calculating…'; }
+
+  try {
+    const res = await fetch('/api/estimate', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ selections: [currentSelection()] }),
+    });
+
+    if (!res.ok) throw new Error(`Estimate API error: ${res.status}`);
+
+    const r = await res.json();
+
+    $('#est-teaser-low').textContent = money(r.low);
+    $('#est-teaser-high').textContent = money(r.high);
+
+    show(3);
+  } catch (err) {
+    console.error('Estimate error:', err);
+    const container = $('#est-questions');
+    if (container) {
+      const errEl = document.createElement('p');
+      errEl.className = 'est-error';
+      errEl.textContent = 'Sorry, we could not calculate your estimate right now. Please call (650) 713-6162.';
+      container.appendChild(errEl);
+    }
+  } finally {
+    if (nextBtn) { nextBtn.disabled = false; nextBtn.textContent = 'See my range'; }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Step 3 — Lead Capture (reveals confirmed range + logs lead to KV + Sheet)
 // ---------------------------------------------------------------------------
 function initLeadForm() {
   const form = $('#est-lead');
@@ -212,29 +266,19 @@ function initLeadForm() {
       return;
     }
 
-    const sel = {
-      serviceId: state.serviceId,
-      qty: state.qty,
-      rise_in: state.rise_in,
-      answers: { ...state.answers },
-    };
-    delete sel.answers.qty;
-    delete sel.answers.rise_in;
-
+    const sel = currentSelection();
     const leadId = generateLeadId();
 
     try {
+      // Always call /api/estimate WITH leadId so the Worker logs the full
+      // record (incl. wholesale) to KV for the quote agent.
       const res = await fetch('/api/estimate', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ selections: [sel], leadId, lead }),
       });
 
-      if (!res.ok) {
-        console.error('Estimate API error:', res.status);
-        alert('Sorry, we could not calculate your estimate right now. Please call (650) 713-6162.');
-        return;
-      }
+      if (!res.ok) throw new Error(`Estimate API error: ${res.status}`);
 
       const r = await res.json();
 
@@ -282,7 +326,7 @@ async function fireLeadWebhook(payload) {
 // ---------------------------------------------------------------------------
 function initNavigation() {
   const nextBtn = $('#est-next');
-  if (nextBtn) nextBtn.addEventListener('click', () => show(3));
+  if (nextBtn) nextBtn.addEventListener('click', fetchAndShowTeaser);
 
   $$('[data-back]').forEach((btn) => {
     btn.addEventListener('click', () => show(parseInt(btn.dataset.back, 10)));
