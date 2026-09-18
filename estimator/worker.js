@@ -179,6 +179,7 @@ export default {
       };
       if (body.est?.low != null) fields['Estimate Low'] = body.est.low;
       if (body.est?.high != null) fields['Estimate High'] = body.est.high;
+      if (body.source) fields['Source'] = body.source;
 
       try {
         const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}`, {

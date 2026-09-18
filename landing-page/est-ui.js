@@ -300,6 +300,18 @@ function initLeadForm() {
   });
 }
 
+function getSource() {
+  const p = new URLSearchParams(window.location.search);
+  if (p.get('gclid')) return 'Google Ads';
+  if (p.get('fbclid')) return 'Facebook';
+  const utm = (p.get('utm_source') || '').toLowerCase();
+  if (utm.includes('google')) return 'Google Ads';
+  if (utm.includes('facebook') || utm.includes('instagram') || utm === 'ig') return 'Facebook';
+  if (p.get('utm_medium') === 'referral') return 'Referral';
+  if (utm) return 'Other';
+  return 'Website';
+}
+
 async function fireLeadWebhook(payload) {
   try {
     // POST to our Worker (same-origin) which writes the lead to Airtable.
@@ -314,6 +326,7 @@ async function fireLeadWebhook(payload) {
         answers: payload.sel?.answers || {},
         est: { low: payload.estimate?.low, high: payload.estimate?.high },
         leadId: payload.leadId,
+        source: getSource(),
       }),
     });
   } catch (e) {
