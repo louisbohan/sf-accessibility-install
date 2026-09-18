@@ -146,23 +146,53 @@ export default {
     }
 
     // -----------------------------------------------------------------------
-    // POST /api/lead — forwards lead to Google Apps Script (Google Sheet).
-    // Server-side so the browser never hits Google's bot-protection directly.
+    // POST /api/lead — create a lead record in Airtable (CRM).
+    // Server-side holds the Airtable PAT secret; browser never sees it.
     // -----------------------------------------------------------------------
     if (url.pathname === '/api/lead' && request.method === 'POST') {
-      const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzwKTo2CAYgom77Xis3RT_GPSEtnidPDW2D0S3xJ7G-wW8rwdEhD9ioRdUCIVsl9KPj8w/exec';
-      const bodyText = await request.text();
+      const SERVICE_LABELS = {
+        'grab_bars': 'Grab bars',
+        'threshold_ramp': 'Threshold ramp',
+        'modular_ramp': 'Modular aluminum ramp',
+        'wood_ramp': 'Wood ramp (custom)',
+        'portable_ramp': 'Portable ramp',
+        'handrail': 'Handrail / stair railing',
+        'stairlift_straight': 'Stair lift (straight)',
+        'stairlift_curved': 'Stair lift (curved)',
+        'door_widening': 'Door widening',
+        'vpl': 'Vertical platform lift',
+      };
+      const AIRTABLE_BASE = 'appRwVTn2Hhmmn4P7';
+      const AIRTABLE_TABLE = 'Leads';
+
+      const body = await request.json().catch(() => null);
+      if (!body) return json({ error: 'invalid json' }, 400);
+
+      const fields = {
+        'Name': body.name || 'Unknown',
+        'Phone': body.phone || '',
+        'Zip': body.zip || '',
+        'Service': SERVICE_LABELS[body.serviceId] || body.serviceId || '',
+        'Status': 'New',
+        'Lead ID': body.leadId || '',
+        'Notes': 'Submitted via website estimator',
+      };
+      if (body.est?.low != null) fields['Estimate Low'] = body.est.low;
+      if (body.est?.high != null) fields['Estimate High'] = body.est.high;
+
       try {
-        const res = await fetch(LEAD_ENDPOINT, {
+        const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'text/plain;charset=UTF-8',
-            'User-Agent': 'Mozilla/5.0 (compatible; GoogleAppsScript-Proxy/1.0)',
+            'Authorization': `Bearer ${env.AIRTABLE_PAT}`,
+            'Content-Type': 'application/json',
           },
-          body: bodyText,
+          body: JSON.stringify({ typecast: true, fields }),
         });
-        const forwarded = await res.text();
-        return json({ ok: true, upstream: res.status, body: forwarded.slice(0, 200) });
+        const out = await res.text();
+        let recId;
+        try { recId = JSON.parse(out).id; } catch (_) { /* ignore */ }
+        return json({ ok: res.ok, status: res.status, recordId: recId, error: res.ok ? undefined : out.slice(0, 300) }, res.ok ? 200 : 502);
       } catch (e) {
         return json({ ok: false, error: String(e) }, 502);
       }

@@ -302,11 +302,10 @@ function initLeadForm() {
 
 async function fireLeadWebhook(payload) {
   try {
-    // Fire-and-forget to Google Apps Script (no-cors + text/plain avoids preflight)
-    await fetch(LEAD_ENDPOINT, {
+    // POST to our Worker (same-origin) which writes the lead to Airtable.
+    await fetch('/api/lead', {
       method: 'POST',
-      mode: 'no-cors',
-      headers: { 'content-type': 'text/plain;charset=UTF-8' },
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
         name: payload.lead?.name,
         phone: payload.lead?.phone,
