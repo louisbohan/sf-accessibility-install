@@ -145,6 +145,49 @@ export default {
       });
     }
 
+    // -----------------------------------------------------------------------
+    // POST /api/lead — forwards lead to Google Apps Script (Google Sheet).
+    // Server-side so the browser never hits Google's bot-protection directly.
+    // -----------------------------------------------------------------------
+    if (url.pathname === '/api/lead' && request.method === 'POST') {
+      const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzwKTo2CAYgom77Xis3RT_GPSEtnidPDW2D0S3xJ7G-wW8rwdEhD9ioRdUCIVsl9KPj8w/exec';
+      const bodyText = await request.text();
+      try {
+        const res = await fetch(LEAD_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=UTF-8',
+            'User-Agent': 'Mozilla/5.0 (compatible; GoogleAppsScript-Proxy/1.0)',
+          },
+          body: bodyText,
+        });
+        const forwarded = await res.text();
+        return json({ ok: true, upstream: res.status, body: forwarded.slice(0, 200) });
+      } catch (e) {
+        return json({ ok: false, error: String(e) }, 502);
+      }
+    }
+
+    // -----------------------------------------------------------------------
+    // GET /api/leads  (owner-only) — list all captured leads from KV
+    // -----------------------------------------------------------------------
+    if (url.pathname === '/api/leads' && request.method === 'GET') {
+      const ownerKey = request.headers.get('X-Owner-Key');
+      if (!ownerKey || ownerKey !== env.OWNER_KEY) {
+        return text('nope', 401);
+      }
+      const list = await env.PRICING.list({ prefix: 'est:' });
+      const leads = [];
+      for (const k of list.keys) {
+        const raw = await env.PRICING.get(k.name);
+        if (raw) {
+          try { leads.push(JSON.parse(raw)); } catch (_) { /* skip malformed */ }
+        }
+      }
+      leads.sort((a, b) => (b.ts || 0) - (a.ts || 0));
+      return json({ count: leads.length, leads });
+    }
+
     return text('not found', 404);
   },
 };
