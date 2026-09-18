@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18459398455"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18459398455');
+  // Lead conversion (fires on estimator submit + tap-to-call)
+  window.trackLead = function () {
+    if (window.gtag) gtag('event', 'conversion', { send_to: 'AW-18459398455/CONVERSION_LABEL' });
+  };
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wheelchair Ramp, Stair Lift &amp; Grab Bar Installation in San Francisco | Safely Home SF</title>
@@ -193,7 +205,10 @@ src="https://www.facebook.com/tr?id=1486244471537621&ev=PageView&noscript=1"
 <script>
 // Fire Meta "Lead" event on any tap-to-call
 document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
-  a.addEventListener('click', function () { if (window.fbq) fbq('track', 'Lead'); });
+  a.addEventListener('click', function () {
+    if (window.fbq) fbq('track', 'Lead');
+    if (window.trackLead) window.trackLead();
+  });
 });
 </script>
 </body>

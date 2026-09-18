@@ -291,6 +291,7 @@ function initLeadForm() {
       show(4);
 
       if (window.fbq) fbq('track', 'Lead');
+      if (window.trackLead) window.trackLead();
       fireLeadWebhook({ lead, sel, estimate: r, leadId });
     } catch (err) {
       console.error('Estimate error:', err);
