@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Receptionist for Plumbing Businesses | Safely Home SF</title>
+<meta name="description" content="Never miss a plumbing call again. Our AI receptionist answers when you can't, captures the job details, flags emergencies, and emails you a summary — so you can stay on the job site.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+/* Plumbing page overrides and additions */
+.demo-block {
+  background: var(--field);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  margin: 1.5rem 0;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.demo-block h3 {
+  margin-bottom: 0.5rem;
+}
+.demo-block .phone-number {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--pine);
+  display: block;
+  margin: 0.75rem 0;
+}
+.demo-block .or-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.25rem 0;
+  color: #778;
+  font-size: 0.95rem;
+}
+.demo-block .or-divider::before,
+.demo-block .or-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+.demo-block .widget-note {
+  font-size: 0.9rem;
+  color: #556;
+  margin-top: 0.75rem;
+}
+.how-steps {
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+.how-steps li {
+  padding-left: 3.5rem;
+  position: relative;
+}
+.how-steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--pine);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+.benefits {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.benefits > div {
+  background: var(--card);
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--pine);
+}
+.benefits strong {
+  display: block;
+  font-size: 1.05rem;
+  margin-bottom: 0.25rem;
+}
+@media (min-width: 720px) {
+  .benefits { grid-template-columns: repeat(2, 1fr); }
+}
+.cta-section {
+  text-align: center;
+  padding: 2rem 0;
+}
+.cta-section p {
+  max-width: 48ch;
+  margin: 0 auto 1rem;
+}
+.draft-notice {
+  background: #FFF3CD;
+  border: 1px solid #FFECB5;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: #664D03;
+  margin-bottom: 1.5rem;
+  display: none; /* hidden from visitors; visible with ?draft query param */
+}
+.draft-notice.visible {
+  display: block;
+}
+</style>
+</head>
+<body id="top">
+
+<header>
+  <div class="wrap">
+    <a href="/plumbing/" class="logo">Safely Home SF</a>
+    <a href="tel:+16507136162" class="btn">Try the demo: (650) 713-6162</a>
+  </div>
+</header>
+
+<!-- DRAFT NOTICE (visible only with ?draft in URL) -->
+<div class="wrap">
+  <div class="draft-notice" id="draft-notice">
+    <strong>DRAFT COPY</strong> — This page is live but the wording is a placeholder for Louis to refine. Layout and widget are final.
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero-section">
+  <div class="wrap hero">
+    <div class="hero-copy">
+      <p class="sub">For plumbing business owners</p>
+      <h1>Stop losing jobs to missed calls.</h1>
+      <p>Your AI receptionist answers when you're on the job site, captures every detail — name, address, problem, urgency — flags emergencies for a live handoff, and emails you a complete summary within minutes.</p>
+
+      <div class="trust-row" aria-label="Key benefits">
+        <span>Answers 24/7</span>
+        <span class="dot">&bull;</span>
+        <span>Captures the full intake</span>
+        <span class="dot">&bull;</span>
+        <span>Flags emergencies</span>
+        <span class="dot">&bull;</span>
+        <span>Emails you a summary</span>
+      </div>
+
+      <div class="actions">
+        <a href="tel:+16507136162" class="btn btn-primary">Call the demo: (650) 713-6162</a>
+        <a href="#try-it" class="btn">Try it in your browser</a>
+      </div>
+    </div>
+
+    <div class="hero-media">
+      <div class="hero-placeholder">
+        <span>AI Receptionist</span>
+        <small>Answers your plumbing calls so you don't have to</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section>
+  <div class="wrap">
+    <h2>What it does for your business</h2>
+    <div class="benefits">
+      <div>
+        <strong>Never miss a call</strong>
+        Answers after-hours, overflow, and weekend calls — the ones that turn into jobs for your competitor.
+      </div>
+      <div>
+        <strong>Captures the job details</strong>
+        Name, callback number, service address, problem description, and urgency — all in the summary email.
+      </div>
+      <div>
+        <strong>Flags emergencies</strong>
+        Gas leaks, active flooding, sewage backup — the AI knows to escalate immediately and can transfer the call to you.
+      </div>
+      <div>
+        <strong>Sends you a summary</strong>
+        Within minutes of the call ending, you get an email with everything you need to call back or dispatch.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRY IT -->
+<section id="try-it">
+  <div class="wrap">
+    <h2>Try it right now</h2>
+    <p>Call the demo line or use the voice widget below to talk to the AI receptionist. Tell it you have a leaky faucet, a clogged drain, or a water heater problem — and see how it handles the intake.</p>
+
+    <div class="demo-block">
+      <h3>Call the demo line</h3>
+      <a href="tel:+16507136162" class="phone-number">(650) 713-6162</a>
+      <p class="fine">Tap to call on mobile, or dial from any phone.</p>
+
+      <div class="or-divider">or try it from your browser</div>
+
+      <p>Click the phone icon in the bottom-right corner to start a voice call with the AI directly in your browser. No app needed.</p>
+      <p class="widget-note">The browser demo showcases the voice experience. Call transfer to the owner works on phone calls only.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="wrap">
+    <h2>How it works</h2>
+    <ol class="how-steps">
+      <li><strong>A customer calls your business number.</strong> When you can't answer — on a job, after hours, weekends — the call forwards to the AI receptionist.</li>
+      <li><strong>The AI answers and runs the intake.</strong> It introduces itself, discloses it's an AI, and collects the caller's name, address, phone number, problem, and urgency.</li>
+      <li><strong>Emergencies get escalated.</strong> Gas leaks, flooding, or no-heat situations trigger a live transfer to your cell or an immediate alert.</li>
+      <li><strong>You get a summary email.</strong> Within minutes, you have everything you need — caller info, job details, urgency level — ready to call back or dispatch.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- SETUP -->
+<section>
+  <div class="wrap">
+    <h2>Setup takes five minutes</h2>
+    <p>You set up call forwarding on your business line — the same way you'd forward to a receptionist or answering service. No new number, no app to install, no hardware. Your customers call the same number they always have.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="wrap cta-section">
+    <h2>Interested?</h2>
+    <p>We're looking for a handful of plumbing businesses in the Bay Area to try this out. If missed calls are costing you jobs, let's talk.</p>
+    <a href="mailto:hello@safelyhomesf.com?subject=AI%20Receptionist%20-%20Interested" class="btn btn-primary">Get in touch</a>
+    <p class="fine" style="margin-top: 1rem;">No commitment. We'll set up a demo on your actual business line so you can see it work with real calls.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Safely Home SF</strong></p>
+    <p><a href="mailto:hello@safelyhomesf.com">hello@safelyhomesf.com</a></p>
+    <p class="fine">This is a demo of an AI voice receptionist. It is not a plumbing service and does not provide plumbing advice, pricing, or scheduling commitments.</p>
+  </div>
+</footer>
+
+<!-- Retell Voice Widget -->
+<!-- 
+  SETUP REQUIRED: Replace YOUR_RETELL_PUBLIC_KEY below.
+  1. Go to Retell Dashboard > API Keys > Public Keys
+  2. Create or edit a public key
+  3. Add "safelyhomesf.com" to the allowed domains
+  4. Copy the key value and replace YOUR_RETELL_PUBLIC_KEY below
+-->
+<script
+  id="retell-widget"
+  src="https://dashboard.retellai.com/retell-widget-v2.js"
+  type="module"
+  data-voice-public-key="YOUR_RETELL_PUBLIC_KEY"
+  data-voice-agent-id="agent_f8c022f84d0558c50cdfa82c69"
+  data-color="#22503F"
+  data-fab-text="Talk to the AI"
+></script>
+
+<script>
+// Show draft notice when ?draft is in the URL
+if (window.location.search.includes('draft')) {
+  document.getElementById('draft-notice').classList.add('visible');
+}
+</script>
+</body>
+</html>
